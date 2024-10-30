@@ -30,6 +30,11 @@ def get_points_from_input():
         points.append((x, y))
     return points
 
+def get_spline_from_points(points):
+    # cubic interpolation with free boundaries
+    spline = curve_factory.cubic_curve(np.asarray(points))
+    return spline
+    
 
 def main():
     method = (
@@ -56,10 +61,8 @@ def main():
           "\n".join([f"\t[{x:.2f}, {y:.2f}]," for x, y in zip(x, y)]) 
           + "\n]")
 
-    # cubic interpolation with free boundaries
-    spline = curve_factory.cubic_curve(np.asarray(points))
-
-    
+    # small abstraction to allow importing
+    spline = get_spline_from_points(points)
     
     # Evaluate spline
     t_new = np.linspace(spline.start(), spline.end(), 200).ravel()
@@ -75,7 +78,6 @@ def main():
     plt.ylabel("Y")
     plt.grid(True)
     plt.show()
-
 
 if __name__ == "__main__":
     main()
