@@ -29,7 +29,9 @@ def get_dataframe(result):
     return pd.DataFrame({
         key: map(float, value) for key, value in 
         result.items()
-        if key.find("Result") == -1
+        if key.find("Result") == -1 and 
+        key.find("Analysis") == -1 and
+        key.find("FC") == -1
         })
 
 def get_names(res):
