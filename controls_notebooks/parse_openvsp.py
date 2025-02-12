@@ -24,6 +24,13 @@ def get_polar(filename):
     res = parse_openvsp(filename)
     return get_result(res, POLAR)[0]
 
+def get_dataframe(result):
+    import pandas as pd
+    return pd.DataFrame({
+        key: map(float, value) for key, value in 
+        result.items()
+        if key.find("Result") == -1
+        })
 
 def get_names(res):
     return [r[NAME] for r in res]
